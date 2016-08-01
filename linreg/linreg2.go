@@ -4,6 +4,7 @@
 // and outputs alpha, beta, and epsilon such that
 // y = alpha + beta * x is the best fit and epsilon squared  is the average of the squared residuals
 // use linreg instead, this file is left here for cross validation.
+// Note that the input format differs from linreg.
 package main
 
 import (
