@@ -66,6 +66,10 @@ func main() {
 		log.Fatal(err)
 	}
 
+	if n == 0 {
+		log.Fatal("No input.")
+	}
+
 	// fmt.Println("yxj = ", mat64.Formatted(mat64.NewVector(k, yxj), mat64.Prefix("       ")))
 	// fmt.Println("xxT = ", mat64.Formatted(xxT, mat64.Prefix("       ")))
 
