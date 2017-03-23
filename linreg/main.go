@@ -38,7 +38,7 @@ func main() {
 	for line := 1; scanner.Scan(); line++ {
 		flds, err := parseFloats(strings.Fields(scanner.Text()))
 		if err != nil {
-			log.Println("line %d: %v", line, err)
+			log.Printf("line %d: %v", line, err)
 			continue
 		}
 		if k == 0 {
