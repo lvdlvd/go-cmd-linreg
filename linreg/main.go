@@ -5,6 +5,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -12,6 +13,10 @@ import (
 	"strings"
 
 	"github.com/gonum/matrix/mat64"
+)
+
+var (
+	fGpl = flag.Bool("g", false, "print result as gnuplottable formula")
 )
 
 func parseFloats(fld []string) ([]float64, error) {
@@ -27,6 +32,8 @@ func parseFloats(fld []string) ([]float64, error) {
 }
 
 func main() {
+
+	flag.Parse()
 
 	var (
 		n, k int
@@ -82,5 +89,20 @@ func main() {
 	beta.SolveCholesky(&chol, mat64.NewVector(k, yxj))
 
 	// TODO(lvd): compute residual error
-	fmt.Println(mat64.Formatted(&beta))
+	if *fGpl {
+		p := 0
+		for i := 0; i < k; i++ {
+			fmt.Printf("%+f ", beta.At(i, 0))
+			switch p {
+			case 0:
+			case 1:
+				fmt.Printf("*x ")
+			default:
+				fmt.Printf("*x**%d ", p)
+			}
+			p += 1
+		}
+	} else {
+		fmt.Println(mat64.Formatted(&beta))
+	}
 }
