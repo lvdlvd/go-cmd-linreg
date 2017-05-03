@@ -102,6 +102,7 @@ func main() {
 			}
 			p += 1
 		}
+		fmt.Println()
 	} else {
 		fmt.Println(mat64.Formatted(&beta))
 	}
