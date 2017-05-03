@@ -122,9 +122,6 @@ func main() {
 
 	// TODO(lvd): compute residual error
 	if *fGpl {
-		fmt.Println(mat64.Formatted(&beta))
-	} else {
-
 		p := 0
 		pp := 1
 		switch {
@@ -147,5 +144,7 @@ func main() {
 			p += pp
 		}
 		fmt.Println()
+	} else {
+		fmt.Println(mat64.Formatted(&beta))
 	}
 }
