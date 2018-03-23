@@ -17,6 +17,7 @@ import (
 
 var (
 	fGpl  = flag.Bool("g", false, "print result as gnuplottable formula")
+	fKmin = flag.Int("kmin", 0, "min order of polynomial")
 	fK    = flag.Int("k", 2, "max order of polynomial")
 	fEven = flag.Bool("e", false, "even powers only")
 	fOdd  = flag.Bool("o", false, "odd powers only")

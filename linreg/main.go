@@ -5,6 +5,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -13,6 +14,8 @@ import (
 
 	"github.com/gonum/matrix/mat64"
 )
+
+var fnice = flag.Bool("n", false, "no fancy formatting")
 
 func parseFloats(fld []string) ([]float64, error) {
 	var r []float64
@@ -27,6 +30,7 @@ func parseFloats(fld []string) ([]float64, error) {
 }
 
 func main() {
+	flag.Parse()
 
 	var (
 		n, k int
@@ -82,5 +86,12 @@ func main() {
 	beta.SolveCholesky(&chol, mat64.NewVector(k, yxj))
 
 	// TODO(lvd): compute residual error
-	fmt.Println(mat64.Formatted(&beta))
+	if !*fnice {
+		fmt.Println(mat64.Formatted(&beta))
+	} else {
+		for i := 0; i < k; i++ {
+			fmt.Printf("%+f ", beta.At(i, 0))
+		}
+		fmt.Println()
+	}
 }
