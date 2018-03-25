@@ -8,6 +8,11 @@ It then reads a similar file on stdin, only using the first column, x', to inter
 and print y1'... with an n't degree polynomial.
 
 
+test:
+	seq 0 10 | awk '{print $1, $1*$1, $1*$1*$1}' > dataset.dat
+	seq 0 0.5 10 | awk '{print $1, $1*$1, $1*$1*$1}' > test.dat
+	interpol -n N dataset.dat < test.dat | diff test.dat -
+should show no diffs for n>3
 */
 package main
 
