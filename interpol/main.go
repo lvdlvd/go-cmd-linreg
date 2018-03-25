@@ -180,7 +180,6 @@ func interpolate(d [][]float64, x float64, deg int) []float64 {
 	var lj []float64
 	for j := i_min; j <= i_max; j++ {
 		lj = append(lj, 1.0)
-		log.Println("abcsissa", j, d[j][0])
 		for i := i_min; i <= i_max; i++ {
 			if i == j {
 				continue
