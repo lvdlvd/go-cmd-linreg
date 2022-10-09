@@ -31,6 +31,7 @@ import (
 var (
 	degree = flag.Int("n", 1, "degree of interpolation, 0 = lookup nearest, 1 = linear (2 points), 2 = quadratic (3 points)...")
 	clip   = flag.Bool("clip", false, "do not extrapolate outside of datasets bounds.")
+	dedup  = flag.Bool("d", false, "remove duplicate x values from the dataset")
 )
 
 func usage() {
@@ -68,12 +69,22 @@ func main() {
 		sort.Sort(byFirstCol(dataset))
 	}
 
-	for i, _ := range dataset[1:] {
+	// TODO: maybe also eliminate the first one, or average them?
+	dd := dataset[:1]
+	for i, v := range dataset[1:] {
 		if dataset[i+1][0] == dataset[i][0] {
-			log.Println(dataset[i])
-			log.Println(dataset[i+1])
-			log.Fatalln("duplicate x values")
+			if !*dedup {
+				log.Println(dataset[i])
+				log.Println(dataset[i+1])
+				log.Fatalln("duplicate x values")
+			}
+		} else {
+			dd = append(dd, v)
 		}
+	}
+	if len(dataset) != len(dd) {
+		log.Printf("removed %d duplicates", len(dataset)-len(dd))
+		dataset = dd
 	}
 
 	s := bufio.NewScanner(os.Stdin)
